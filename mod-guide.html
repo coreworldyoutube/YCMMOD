@@ -71,18 +71,21 @@
         <pre id="java-code">
           <code class="language-java">
             package com.example.mymod;
-
-            import net.fabricmc.api.ModInitializer;
-
-            public class MyMod implements ModInitializer {
-                // MOD_IDは「mymod」に設定
-                public static final String MOD_ID = "mymod";
-
-                @Override
-                public void onInitialize() {
-                    // MODが初期化される際に実行されるコード
-                    System.out.println("Hello Fabric world! MOD_ID: " + MOD_ID);
-                }
+            
+            import net.minecraftforge.api.distmarker.Dist;
+            import net.minecraftforge.common.MinecraftForge;
+            import net.minecraftforge.eventbus.api.IEventBus;
+            import net.minecraftforge.fml.common.Mod;
+            import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+            
+            @Mod("my-mod-id")
+            // MOD IDを「my-mod-id」に設定
+            public class MyMod {
+            　　public static final String MOD_ID = "mymod";
+               // MOD_IDは「my-mod-id」に設定した。名札みたいなやつ。
+            　　public MyMod() {
+            　　// 初期化処理を直接ここに書く。マイクラを起動する際に起動させたいプログラムをここに書き込めば上から順に読み込んでくれる。
+            　　}
             }
           </code>
         </pre>
