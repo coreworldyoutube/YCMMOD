@@ -3,8 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>マイクラMOD開発ツール</title>
+  <title>MOD解説 - マイクラMOD開発ツール</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* コードブロックのスタイル */
+    .code-container {
+      position: relative;
+      border: 1px solid #ddd;
+      background-color: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      margin: 20px 0;
+    }
+
+    /* コピーするボタンのスタイル */
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .copy-btn:hover {
+      background-color: #45a049;
+    }
+
+    /* ボタンを目立たせる */
+    .copy-btn:focus {
+      outline: none;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -21,16 +58,44 @@
   </header>
 
   <main>
-    <section class="intro">
-      <h2>ようこそ！</h2>
-      <p>このツールは、マインクラフトMOD開発をサポートします。ここではMOD制作に関しての解説をします。またMOD開発に必要なツールをいくつか備えていくつもりです。</p>
+    <section>
+      <h2>MOD解説</h2>
+      <p>このページでは、マイクラMODの作り方について解説します。</p>
     </section>
-    <section class="features">
-      <h2>主な特徴</h2>
+
+    <section class="usage">
+      <h3>MOD_ID登録コード</h3>
+      <p>以下のJavaコードは、MODを識別するためのMOD_IDを登録するコードです。</p>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode()">コピー</button>
+        <pre id="java-code">
+          <code class="language-java">
+            package com.example.mymod;
+
+            import net.fabricmc.api.ModInitializer;
+
+            public class MyMod implements ModInitializer {
+                // MOD_IDは「mymod」に設定
+                public static final String MOD_ID = "mymod";
+
+                @Override
+                public void onInitialize() {
+                    // MODが初期化される際に実行されるコード
+                    System.out.println("Hello Fabric world! MOD_ID: " + MOD_ID);
+                }
+            }
+          </code>
+        </pre>
+      </div>
+    </section>
+
+    <section class="troubleshooting">
+      <h3>トラブルシューティング</h3>
+      <p>MODのインストールや動作に問題が発生した場合、以下を確認してください。</p>
       <ul>
-        <li>テスト</li>
-        <li>テスト</li>
-        <li>テスト</li>
+        <li>MODファイルが正しい場所に配置されているか確認。</li>
+        <li>必要なMinecraftのバージョンを使用しているか確認。</li>
+        <li>競合するMODがないか確認。</li>
       </ul>
     </section>
   </main>
@@ -39,6 +104,22 @@
     <p>&copy; 2025 マイクラMOD開発ツール</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    function copyCode() {
+      // Javaコードのプレースホルダーを取得
+      var code = document.getElementById("java-code").innerText;
+      
+      // 一時的なテキストエリアを作成してクリップボードにコピー
+      var textarea = document.createElement("textarea");
+      textarea.value = code;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+
+      // コピーしたことを知らせるメッセージ
+      alert("コードがコピーされました！");
+    }
+  </script>
 </body>
 </html>
