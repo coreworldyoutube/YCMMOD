@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3Dキューブビューア</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script>
+        // シーン、カメラ、レンダラーを作成
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 立方体のジオメトリ
+        const geometry = new THREE.BoxGeometry();
+
+        // テクスチャ読み込み
+        const loader = new THREE.TextureLoader();
+        const texturePaths = [
+            'textures/face1.jpg', 'textures/face2.jpg', // 左・右
+            'textures/face3.jpg', 'textures/face4.jpg', // 上・下
+            'textures/face5.jpg', 'textures/face6.jpg'  // 前・後
+        ];
+        const materials = texturePaths.map(path => new THREE.MeshBasicMaterial({ map: loader.load(path) }));
+
+        // 立方体を作成
+        const cube = new THREE.Mesh(geometry, materials);
+        scene.add(cube);
+
+        camera.position.z = 2;
+
+        // アニメーションループ
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // ウィンドウサイズ変更時の対応
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+</body>
+</html>
